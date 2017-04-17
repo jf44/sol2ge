@@ -1,0 +1,537 @@
+body, table
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	margin: 2px;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+
+}
+
+canvas {
+	display: block;
+	margin: 0;
+	padding: 0;
+	position: absolute;
+}
+
+#raceinfo {
+	opacity: 0.5;
+}
+
+tr, td, p, li, a
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10pt
+}
+
+
+h1
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size : x-large;
+	font-weight : bold;
+	font-style: normal;
+	color : Navy;
+	text-align : center;
+}
+
+h2
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: large;
+	font-weight : bold;
+	font-style: normal;
+	color : Navy;
+}
+
+h3
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: large;
+	font-weight : normal;
+	font-style : normal;
+	color : Navy;
+}
+
+h4
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: medium;
+	font-weight : bold;
+	font-style: normal;
+	color : Navy;
+}
+
+h5  {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size : small;
+	font-weight : bold;
+	font-style : italic;
+	color : Navy;
+}
+
+h6  {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size : x-small;
+	font-weight : normal;
+	font-style : normal;
+	color : Navy;
+}
+
+a:link
+{
+	text-decoration: none;
+	color: #3300aa
+}
+
+a:visited, active
+{
+	text-decoration: none;
+	color: #3300aa
+}
+
+
+
+a:hover
+{
+	text-decoration: underline;
+	color: #7700cc
+}
+
+
+a.small:link {
+	text-decoration: none;
+	color: #3300aa;
+	font-size: 8pt;
+}
+
+a.small:visited, active {
+	text-decoration: none;
+	color: #3300aa;
+	font-size: 8pt;
+}
+
+a.small:hover
+{
+	text-decoration: underline;
+	color: #7700cc;
+    font-size: 8pt;
+}
+
+a.menu:link {
+	text-decoration: none;
+	color: Yellow;
+}
+
+a.menu:visited, active {
+	text-decoration: none;
+	color: Red;
+
+}
+
+a.menu:hover
+{
+	text-decoration: underline;
+	color: Cyan;
+}
+
+div#header {
+    position:absolute;
+    right:0px;
+	top:0px;
+	width:198px;
+	height:60px;
+    color:navy;
+	background-color:#e0e0ff;
+	background-image: url("../images/sol_logo.png");
+    background-repeat: no-repeat;
+    background-position: right top;
+    background-attachment: fixed;
+    text-align: left;
+    margin:0px;
+	padding:4px;
+	white-space : normal;
+	}
+
+div#navmenu {
+    left:0px;
+	top:0px;
+ 	right:204px;
+	height:18px;
+    background-color:Navy;
+    text-align: left;
+	white-space : normal;
+}
+
+div#consoleright{
+	position:fixed;
+	right:1px;
+	width:196px;
+	top:66px;
+    bottom:26px;
+    border:solid 1px navy;
+    background-color:#ffffff;
+    z-index: 2;
+	color: Black;
+    text-align: left;
+	font-family : sans-serif;
+	font-size : 8pt;
+	font-weight : normal;
+	margin:1px;
+	padding : 2px;
+	white-space : normal;
+}
+
+div#boat {
+	clear : both;
+	position: absolute;
+    left:1px;
+	bottom:26px;
+ 	right:204px;
+	height:78px;
+    border:solid 1px navy;
+    background-color:#eeffee;
+	font-size: medium;
+	font-weight : normal;
+	font-style : normal;	
+    text-align: left;
+    margin:1px;
+	padding : 2px;
+	white-space : normal;		
+	}
+
+div#footer {
+	clear : both;
+	position: absolute;
+    left:1px;
+	bottom:1px;
+	width:100%;
+	height:16px;
+    border:solid 1px navy;
+    background-color:#e0e0e0;
+	font-size : smaller;
+    text-align: right;
+	margin:1px;
+	padding : 2px;
+	}
+	
+
+div#map {
+	clear : both;
+	position: absolute;
+	left:1px;
+	top:20px;
+    bottom:112px;
+	right:204px;
+    z-index: 0;
+	color: Black;
+    border:solid 1px navy;
+	background-color:#ffffdd;
+    text-align: left;
+	font-family : sans-serif;
+	font-size : 9pt;
+	font-weight : normal;
+	margin:1px;
+	padding : 2px;
+	white-space : normal;
+	}
+	
+span.big {
+	color : Navy;
+	background-color:#e0e0ff;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size : medium;
+	font-weight : bold;
+	font-style: normal;
+	text-align : right;
+}
+
+
+span.menu {
+	color : Yellow;
+	background-color  : Navy;
+	text-align: right;
+}
+
+
+
+span.error {
+	color : Yellow;
+	background-color  : Red;
+}
+
+span.surligne {
+	color: Navy;
+   	background-color : Yellow;
+}
+
+span.small {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+}
+
+.textInput {
+	color: Red;
+   	background-color : Yellow;
+}
+
+.textInput2 {
+	color: Navy;
+   	background-color : White;
+}
+
+#submitBtn {
+ color: Navy;
+ background-color : Yellow;
+ font-size: 9pt;
+ border:1px;
+ margin:2px;
+ padding:1px;
+}
+
+#submitBtn1 {
+ color: Black;
+ font-size: 9pt;
+ border:1px;
+ margin:2px;
+ padding:1px;
+}
+
+
+div#bandeau {
+	position:fixed;
+    top:0;
+    left:0;
+	width:1208px;
+	height:86px;
+    z-index:2;
+    color:navy;
+    border:solid 1px navy;
+	background-color:#e0e0e0;
+    text-align: center;
+    margin:2px;
+	padding:4px;
+	white-space:normal;
+}
+
+div#menugauche {
+	position:fixed;
+	float:left;
+	left:0px;
+	top:98px;
+ 	width:390px;
+	height:350px;
+    z-index: 0;
+	color: Black;
+    border:solid 1px black;
+	background-color:#ddffdd;
+    text-align: left;
+	font-family : sans-serif;
+	font-size:9pt;
+	font-weight:normal;
+	margin:2px;
+	padding:4px;
+	white-space: normal;
+}
+
+div#menucentre {
+	position:fixed;
+	float:left;
+	left:402px;
+	top:98px;
+	width:390px;
+	height:350px;
+    z-index: 0;
+	color: Black;
+    border:solid 1px black;
+	background-color:#ffffcc;
+    text-align: left;
+	font-family : sans-serif;
+	font-size : 9pt;
+	font-weight : normal;
+	margin : 2px;
+	padding : 4px;
+	white-space : normal;
+}
+
+div#menudroite {
+	position:fixed;
+	float:left;
+	left:804px;
+	top:98px;
+	width:390px;
+	height:350px;
+    z-index: 0;
+	color: Black;
+    border:solid 1px black;
+	background-color:#ccffff;
+    text-align: left;
+	font-family : sans-serif;
+	font-size : 9pt;
+	font-weight : normal;
+	margin : 2px;
+	padding : 4px;
+	white-space : normal;
+}
+
+div#console {
+    clear:both;
+	position:relative;
+	left:0px;
+	top:100px;
+	width:100%;
+    z-index: 0;
+	color: Black;
+    text-align: left;
+	font-family : sans-serif;
+	font-size : 8pt;
+	font-weight : normal;
+	margin : 2px;
+	padding : 4px;
+	white-space : normal;
+}
+
+div#consolebasse {
+    clear:both;
+	position:relative;
+	left:0px;
+	top:478px;
+	width:100%;
+    z-index: 0;
+	color: Black;
+    text-align: left;
+	font-family : sans-serif;
+	font-size : 8pt;
+	font-weight : normal;
+	margin : 2px;
+	padding : 4px;
+	white-space : normal;
+}
+
+div#consolegauche{
+	clear:left;
+	position:relative;
+	left:0px;
+	width:796px;
+    z-index: 2;
+	color: Black;
+    text-align: left;
+	font-family : sans-serif;
+	font-size : 8pt;
+	font-weight : normal;
+	margin : 2px;
+	padding : 4px;
+	white-space : normal;
+}
+
+
+div#display1 {
+    clear:both;
+	position:fixed;
+	left:0px;
+	bottom:34px;
+	width:390px;
+	height:500px;
+	z-index: 1;
+	color: Black;
+    border:solid 1px black;
+    background-color:#ffddcc;
+    text-align: left;
+	font-family : sans-serif;
+	font-size : 9pt;
+	font-weight : normal;
+	margin : 2px;
+	padding : 4px;
+	white-space : normal;
+}
+
+div#display2 {
+    clear:both;
+	position:fixed;
+	bottom:30px;
+	right:400px;
+	width:792px;
+    height:350px;
+	z-index: 1;
+	color: Black;
+    border:solid 1px black;
+    background-color:#ddccff;
+    text-align: left;
+	font-family : sans-serif;
+	font-size : 9pt;
+	font-weight : normal;
+	margin : 2px;
+	padding : 4px;
+	white-space : normal;
+}
+
+div#display3 {
+    position:relative;
+	float:left;
+	left:792px;
+	width:390px;
+	height:350px;
+    z-index: 1;
+	color: Black;
+    border:solid 1px black;
+    background-color:#ddffdd;
+    text-align: left;
+	font-family : sans-serif;
+	font-size : 9pt;
+	font-weight : normal;
+	margin : 2px;
+	padding : 4px;
+	white-space : normal;
+}
+
+
+
+div#bigdisplay {
+	position: relative;
+    clear : both;
+	left:0px;
+	top:98px;
+	width:100%;
+	z-index: 0;
+	color: Black;
+    background-color:#ffffff;
+    text-align: left;
+	font-family : sans-serif;
+	font-size : 9pt;
+	font-weight : normal;
+	margin : 2px;
+	padding : 4px;
+	white-space : normal;
+}
+
+
+div#footer {
+	position: fixed;
+    left:1px;
+	width:100%;
+	height:16px;
+    z-index: 1;
+    border:solid 1px navy;
+    background-color:#e0e0e0;
+	font-size : smaller;
+    text-align: right;
+	margin:1px;
+	padding : 2px;
+	}
+
+div#footer2 {
+	position: relative;
+    left:1px;
+	width:100%;
+	height:16px;
+    z-index: 1;
+    border:solid 1px navy;
+    background-color:#e0e0e0;
+	font-size : smaller;
+    text-align: right;
+	margin:1px;
+	padding : 2px;
+	}
+

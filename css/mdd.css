@@ -1,0 +1,46 @@
+/* CSS Document */
+
+article a
+{
+	color:#369;
+}
+footer
+{
+	margin-top:1.5em;
+	text-align:center;
+}
+article img
+{
+    width:100%;
+}
+article code
+{
+	color:#099;
+    background:#233;
+    padding:.5ex;
+}
+article blockquote,
+article pre
+{
+    width:100%;
+    box-sizing:border-box;
+    background:#233;
+    padding:1ex;
+    break-word:break-all;
+    word-wrap: break-word;
+}
+article pre code
+{
+    padding:0;
+}
+article ul,
+article ol
+{
+	padding:0 0 0 1ex;
+}
+article li
+{
+	list-style-position:inside;
+}
+
+

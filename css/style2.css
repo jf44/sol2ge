@@ -1,0 +1,383 @@
+body, table, tr, td, p, li, a
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 10pt
+}
+
+h1
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size : x-large;
+	font-weight : normal;
+	font-style : bold;
+	color : Navy;
+	text-align : center
+}
+
+h2
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: large;
+	font-weight : normal;
+	font-style : bold;
+	color : Navy;
+}
+
+h3
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: large;
+	font-weight : normal;
+	font-style : normal;
+	color : Navy;
+}
+
+h4
+{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: medium;
+	font-weight : normal;
+	font-style : bold;
+	color : Navy;
+}
+
+h5  {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size : small;
+	font-weight : bold;
+	font-style : italic;
+	color : Navy;
+}
+
+h6  {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size : x-small;
+	font-weight : normal;
+	font-style : normal;
+	color : Navy;
+}
+
+a:link
+{
+	text-decoration: none;
+	color: #3300aa
+}
+
+a:visited, active
+{
+	text-decoration: none;
+	color: #3300aa
+}
+
+
+
+a:hover
+{
+	text-decoration: underline;
+	color: #7700cc
+}
+
+
+a.small:link {
+	text-decoration: none;
+	color: #3300aa;
+	font-size: 8pt;
+}
+
+a.small:visited, active {
+	text-decoration: none;
+	color: #3300aa;
+	font-size: 8pt;
+}
+
+a.small:hover
+{
+	text-decoration: underline;
+	color: #7700cc;
+    font-size: 8pt;
+}
+
+
+div#bandeau {
+	position:fixed;
+    top:0;
+    left:0;
+	width:1208px;
+	height:86px;
+    z-index:2;
+    color:navy;
+    border:solid 1px navy;
+	background-color:#e0e0e0;
+    text-align: center;
+    margin : 2px;
+	padding : 4px;
+	white-space : normal;
+}
+
+div#menugauche {
+	position:fixed;
+	float:left;
+	left:0px;
+	top:98px;
+ 	width:390px;
+	height:350px;
+    z-index: 0;
+	color: Black;
+    border:solid 1px black;
+	background-color:#ddffdd;
+    text-align: left;
+	font-family : sans-serif;
+	font-size : 9pt;
+	font-weight : normal;
+	margin : 2px;
+	padding : 4px;
+	white-space : normal;
+}
+
+div#menucentre {
+	position:fixed;
+	float:left;
+	left:402px;
+	top:98px;
+	width:390px;
+	height:350px;
+    z-index: 0;
+	color: Black;
+    border:solid 1px black;
+	background-color:#ffffcc;
+    text-align: left;
+	font-family : sans-serif;
+	font-size : 9pt;
+	font-weight : normal;
+	margin : 2px;
+	padding : 4px;
+	white-space : normal;
+}
+
+div#menudroite {
+	position:fixed;
+	float:left;
+	left:804px;
+	top:98px;
+	width:390px;
+	height:350px;
+    z-index: 0;
+	color: Black;
+    border:solid 1px black;
+	background-color:#ccffff;
+    text-align: left;
+	font-family : sans-serif;
+	font-size : 9pt;
+	font-weight : normal;
+	margin : 2px;
+	padding : 4px;
+	white-space : normal;
+}
+
+div#console {
+    clear:both;
+	position:relative;
+	left:0px;
+	top:10px;
+	width:100%;
+    z-index: 0;
+	color: Black;
+    text-align: left;
+	font-family : sans-serif;
+	font-size : 8pt;
+	font-weight : normal;
+	margin : 2px;
+	padding : 4px;
+	white-space : normal;
+}
+
+div#consoledroite {
+    clear:both;
+	position:absolute;
+	left:400px;
+	top:478px;
+	width:100%;
+    z-index: 0;
+	color: Black;
+    text-align: left;
+	font-family : sans-serif;
+	font-size : 8pt;
+	font-weight : normal;
+	margin : 2px;
+	padding : 4px;
+	white-space : normal;
+}
+
+div#consolebasse {
+    clear:both;
+	position:relative;
+	left:0px;
+	top:478px;
+	width:100%;
+    z-index: 0;
+	color: Black;
+    text-align: left;
+	font-family : sans-serif;
+	font-size : 8pt;
+	font-weight : normal;
+	margin : 2px;
+	padding : 4px;
+	white-space : normal;
+}
+
+div#consolegauche{
+	clear:left;
+	position:relative;
+	left:0px;
+	width:796px;
+    z-index: 2;
+	color: Black;
+    text-align: left;
+	font-family : sans-serif;
+	font-size : 8pt;
+	font-weight : normal;
+	margin : 2px;
+	padding : 4px;
+	white-space : normal;
+}
+
+div#display1 {
+    clear:both;
+	position:fixed;
+	left:0px;
+	bottom:34px;
+	width:390px;
+	height:500px;
+	z-index: 1;
+	color: Black;
+    border:solid 1px black;
+    background-color:#ffddcc;
+    text-align: left;
+	font-family : sans-serif;
+	font-size : 9pt;
+	font-weight : normal;
+	margin : 2px;
+	padding : 4px;
+	white-space : normal;
+}
+
+div#display2 {
+    clear:both;
+	position:fixed
+	bottom:30px;
+	right:400px;
+	width:792px;
+    height:350px;
+	z-index: 1;
+	color: Black;
+    border:solid 1px black;
+    background-color:#ddccff;
+    text-align: left;
+	font-family : sans-serif;
+	font-size : 9pt;
+	font-weight : normal;
+	margin : 2px;
+	padding : 4px;
+	white-space : normal;
+}
+
+div#display3 {
+    position:relative;
+	float:left;
+	left:792px;
+	width:390px;
+	height:350px;
+    z-index: 1;
+	color: Black;
+    border:solid 1px black;
+    background-color:#ddffdd;
+    text-align: left;
+	font-family : sans-serif;
+	font-size : 9pt;
+	font-weight : normal;
+	margin : 2px;
+	padding : 4px;
+	white-space : normal;
+}
+
+
+
+div#bigdisplay {
+	position: relative;
+    clear : both;
+	left:0px;
+	top:98px;
+	width:100%;
+	z-index: 0;
+	color: Black;
+    background-color:#ffffff;
+    text-align: left;
+	font-family : sans-serif;
+	font-size : 9pt;
+	font-weight : normal;
+	margin : 2px;
+	padding : 4px;
+	white-space : normal;
+}
+
+div#piedpage {
+	clear : both;
+	position:fixed;
+    bottom: 0;
+    left: 0;
+	width:1208px;
+	height:20px;
+	z-index: 2;
+	color: Black;
+    border:solid 1px navy;
+    background-color:#e0e0e0;
+    text-align: right;
+	font-size : smaller;
+	font-weight : normal;
+	margin : 2px;
+	padding : 4px;
+	white-space : normal;
+}
+
+
+span.error {
+	color : Yellow;
+	background-color  : Red;
+}
+
+span.surligne {
+	color: Navy;
+   	background-color : Yellow;
+}
+
+span.small {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+}
+
+.textInput {
+	color: Red;
+   	background-color : Yellow;
+}
+
+.textInput2 {
+	color: Navy;
+   	background-color : White;
+}
+
+#submitBtn {
+ color: Navy;
+ background-color : Yellow;
+ font-size: 9pt;
+ border: 1;
+ margin: 2;
+ padding: 1;
+}
+
+#submitBtn1 {
+ color: Black;
+ font-size: 9pt;
+ border: 1;
+ margin: 2;
+ padding: 1;
+}

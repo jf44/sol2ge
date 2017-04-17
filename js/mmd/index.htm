@@ -1,0 +1,133 @@
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>mmd.js - The minimalist markdown parser in JS.</title>
+<style>
+body
+{
+    position:relative;
+    max-width:100%;
+    width:40rem;
+    margin:1.5em auto;
+    font:normal 1em/1.5 sans-serif;
+    color:#333;
+    background:#ccc;
+}
+article a
+{
+	color:#369;
+}
+footer
+{
+	margin-top:1.5em;
+	text-align:center;
+}
+article img
+{
+    width:100%;
+}
+article code
+{
+	color:#099;
+    background:#233;
+    padding:.5ex;
+}
+article blockquote,
+article pre
+{
+    width:100%;
+    box-sizing:border-box;
+    background:#233;
+    padding:1ex;
+    break-word:break-all;
+    word-wrap: break-word;
+}
+article pre code
+{
+    padding:0;
+}
+article ul,
+article ol
+{
+	padding:0 0 0 1ex;
+}
+article li
+{
+	list-style-position:inside;
+}
+
+</style>
+</head>
+<body><article id='parsed'><noscript id='md'>
+
+# Hello, this is mmd.js
+
+[mmd.js](mmd.js) is a standalone minimalist Markdown parser written in ~815 bytes of JavaScript.
+
+All the cool kids use Markdown. If you are not familiar with it already, have a look at the [original Markdown syntax](http://daringfireball.net/projects/markdown/syntax). Check the source code of this page, it is written in Markdown and parsed using [mmd.js](mmd.js).
+
+## Why so small ?
+
+[mmd.js](mmd.js) is only small because of its simple design and feature set. Using dirty size optimization tricks it should be possible to reach the 5-600 bytes mark. Maybe smaller. Except that's not the idea. Enough yak shaving!
+
+## How does **mmd.js** work ?
+
+The input text is split into blocks separated by one or more blank lines. The type of each block is determined by checking the first character of the block. Headers, HTML and paragraphs are handled separetely. Multi line blocks are split using a regular expression. HTML escaping and span elements ( link, images, emphasis ) are processed for each line of the blocks. This allow to be close to the original Markdown syntax.
+
+## How to use **mmd.js** ?
+
+    <script src=mmd.min.js></script>
+	<script>console.log( mmd('Markdown is **sweet**') );</script>
+
+## Supported features
+
+* Headers # 
+* Blockquotes >
+* Ordered lists 1
+* Unordered lists *
+* Paragraphs
+* Links []()
+* Images ![]()
+* Inline <em> emphasis *
+* Inline <strong> emphasis **
+
+## Unsupported features
+
+* References and IDs
+* Escaping of Markdown characters
+* Nesting
+
+## Supported browsers
+
+So far [mmd.js](mmd.js) has been tested in recent versions of Opera ( all flavours including Mini ), Chrome and Firefox. Pull requests addressing compatibility issues are most welcome, esp. regarding IE and Safari.
+
+## Why ?
+
+[mmd.js](mmd.js) is the result of some very intensive yak shaving. Let's be honest, it was just an excuse to procastinate and do something different.
+
+
+## License
+
+MIT
+
+That's all folks.
+
+</noscript></article>
+<script src='mmd.min.js'></script>
+<script>
+
+onload = function()
+{
+	var $ = function(id){ return document.getElementById(id); };
+    var src = $('md').textContent;
+    var then = Date.now();
+    var html = mmd(src);
+    var now = Date.now();
+
+    document.title += ' Just parsed '+ src.length +' md -> '+ html.length +'b html in '+ (now-then) +'ms';
+    $('parsed').innerHTML = html;
+}
+
+</script>
+</body>
+</html>

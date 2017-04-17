@@ -38,11 +38,12 @@ require_once('include/kml_trajectoire.php'); // Génération KML de la trajectoi
 require_once('include/kml_3d.php'); // Génération KML des bateaux comme des modeles 3D
 require_once('include/text2image.php'); // Creation d'overlay avec le nom de la course sur G.E.
 
-$archive = true; // Les ficiers créés sont archivés sous forme kmz
+$archive = true; // Les fichiers créés sont archivés sous forme kmz
 $version="0.2-20170416";
 $lang='fr'; // par defaut
 $module='sol2kml'; // pour charger le bon fichier de langue !
 $tlanglist=array(); // Langues disponibles
+
 
 /*
 // sol_connect.php
@@ -60,6 +61,9 @@ $racename='';
 $token='';
 
 */
+$okboattype=false;
+$okscale=false;
+$okracenumber=false;
 
 // Variable pour le téléchargement des fichiers de données
 $pathrace='race_info'; // stockage local des courses
@@ -174,6 +178,10 @@ if (isset($_COOKIE["solracename"]) && !empty($_COOKIE["solracename"])){
 	$racename=$_COOKIE["solracename"];
 }
 
+if (isset($_COOKIE["solscale"]) && !empty($_COOKIE["solscale"])){
+	$scale=$_COOKIE["solscale"];
+}
+
 if (isset($_COOKIE["solboattype"]) && !empty($_COOKIE["solboattype"])){
 	$boattype=$_COOKIE["solboattype"];
 }
@@ -182,12 +190,15 @@ if (isset($_COOKIE["solboattype"]) && !empty($_COOKIE["solboattype"])){
 if (isset($_GET['lang'])){
 	$lang=$_GET['lang'];
 }
+
 if (isset($_GET['filename'])){
 	$filename=$_GET['filename'];
 	$action="go";
 }
+
 if (isset($_GET['racenumber'])){
 	$racenumber=$_GET['racenumber'];
+	$okracenumber=true;
 }
 
 if (isset($_GET['racename'])){
@@ -198,6 +209,19 @@ if (isset($_GET['token'])){
 	$token=$_GET['token'];
 }
 
+if (isset($_GET['scale'])){
+	$scale=$_GET['scale'];
+    $okscale=true;
+}
+
+if (isset($_GET['boattype'])){
+	$boattype=$_GET['boattype'];
+    $okboattype=true;
+}
+
+if ($okboattype && $okscale && $okracenumber){
+	$action = 'Go';
+}
 // POST
 
 if (isset($_POST['lang'])){
@@ -265,6 +289,11 @@ if (isset($token) && ($token!="") ){
 if (isset($boattype) && ($boattype!="") ){
 	setcookie("solboattype", $boattype);
 }
+
+if (isset($scale) && ($scale!="") ){
+	setcookie("solscale", $scale);
+}
+
 if (isset($racename) && !empty($racename) ){
 	setcookie("solracename", $racename);
 }
@@ -321,15 +350,15 @@ $filenametracks=$servicetracks.$racenumber.$extension.'?token='.$token;
 $filenameraceboats=$servicerace.$racenumber.$extension.'?token='.$token;
 
 myheader();
-
 menu();
 flush();
-
 echo '
-<div id="bigdisplay">
+<div id="display2">
 <h4>'.$al->get_string('process').'</h4>
 ';
-if ($action==$al->get_string('validate')){
+
+
+if (($action=='Go') || ($action==$al->get_string('validate'))){
 	// Fichier de marques et polaires
     if ($marques=my_get_content($solhost.$webclient.$filenamemarkpolars)){
 		// On va utilier SimpleXML
@@ -722,7 +751,7 @@ echo '</div>
 ';
 
 //  Génération des données pour G.E.
-echo '<div id="menudroite">'."\n";
+echo '<div id="display1">'."\n";
 if (empty($t_voilier)){
 	echo '<h4>'.$al->get_string('fileexported').'</h4>'."\n";
 	echo '<p>'.$al->get_string('help1')."</p>\n";
@@ -789,43 +818,6 @@ else{
 }
 
 
-// Archives
-
-// afficheArchivesKML();
-if ($datatodisplay=verifieArchivesKML()){
-	echo '<p><span class="small">'.$al->get_string('info1').'<br /><i>'.$al->get_string('info2').'</i></span></p>'."\n";
-
-	echo '
-<h4>'.$al->get_string('mapready').'</h4>
-';
-
-    displayArchivesKML($datatodisplay);
-	if ($datatodisplay->nkml){
-		echo '
-<button id="rollButtonkml" type="button" onclick="rollKml()">++KML</button>
-';
-		echo '<div id="divkml">
-<script type="text/javascript">
-displayPagekml();
-</script>
-</div>
-';
-	}
-
-	if ($datatodisplay->nkmz){
-		echo '
-<button id="rollButtonkmz" type="button" onclick="rollKmz()">++KMZ</button>
-';
-		echo '<div id="divkmz">
-<script type="text/javascript">
-displayPagekmz();
-</script>
-</div>
-';
-	}
-
-
-}
 
 $nom_kml=ExisteKML($mode); // Gestion du cache temporel
 echo '</div>'."\n";
@@ -913,21 +905,7 @@ global $al;
 //---------
 function myheader(){
 	global $appli;
-	global $nomfichier;
 	global $racenumber;
-	global $racename;
-	global $boattype;
-	global $token;
-	global $dir_serveur;
-	global $fichier_kml_courant;
-	global $extension_kml;
-	global $okfichier_charge;
-	global $extension;
-	global $prefixmarquesetpolaires;
-	global $prefixtraces;
-	global $scale;
-	global $mode;
-	global $url_serveur;
 	global $al;
     global $lang;
 	global $tlanglist;
@@ -963,37 +941,6 @@ if (!empty($tlanglist)){
 }
 
 onelinemenu();
-
-echo '</div>
-<div id="menugauche">
-
-<h4>'.$al->get_string('serverconnect').'</h4>
-';
-	$params = array();
-	$params['url_serveur'] = $url_serveur;
-	$params['scale'] = $scale;
-	$params['mode'] = $mode;
-    $params['boattype'] = $boattype;
- 	select_a_race($params );   // modifie $t_race par effet de bord
-
-	echo '
-<form action="'.$appli.'" method="post">
-* <b><i><label for="text1">'.$al->get_string('racenumber').'</label></i></b><br /><input type="text" class="textInput" id="text1"  name="racenumber" size="4" value="'.$racenumber.'" />
-<br />
-* <b><i><label for="text2">'.$al->get_string('token').'</label></i></b><br /><input type="text" class="textInput" id="text2"  name="token" size="35" value="'.$token.'" />
-<br /><br />
-<input type="reset" />
-<input id="submitBtn" type="submit" name="action" value="'.$al->get_string('validate').'" />
-<i><label for="text4">'.$al->get_string('clicktoload').'</label></i>
-<input type="hidden" name="racenumber" id="racenumber" value="'.$racenumber.'" />
-<input type="hidden" name="racename" id="racename" value="'.$racename.'" />
-<input type="hidden" name="mode" id="mode" value="'.$mode.'"/>
-<input type="hidden" name="scale" id="scale" value="'.$scale.'"/>
-<input type="hidden" name="url_serveur" id="url_serveur" value="'.$url_serveur.'"/>
-<input type="hidden" name="lang" id="lang" value="'.$lang.'"/>
-<input type="hidden" name="boattype" id="boattype" value="'.$boattype.'"/>
-</form>
-';
 
 echo '</div>
 ';
@@ -1095,6 +1042,38 @@ global $lang;
 global $al;
 
 echo '
+<div id="menugauche">
+
+<h4>'.$al->get_string('serverconnect').'</h4>
+';
+	$params = array();
+	$params['url_serveur'] = $url_serveur;
+	$params['scale'] = $scale;
+	$params['mode'] = $mode;
+    $params['boattype'] = $boattype;
+ 	select_a_race($params );   // modifie $t_race par effet de bord
+
+	echo '
+<form action="'.$appli.'" method="post">
+* <b><i><label for="text1">'.$al->get_string('racenumber').'</label></i></b><br /><input type="text" class="textInput" id="text1"  name="racenumber" size="4" value="'.$racenumber.'" />
+<br />
+* <b><i><label for="text2">'.$al->get_string('token').'</label></i></b><br /><input type="text" class="textInput" id="text2"  name="token" size="35" value="'.$token.'" />
+<br /><br />
+<input type="reset" />
+<input id="submitBtn" type="submit" name="action" value="'.$al->get_string('validate').'" />
+<i><label for="text4">'.$al->get_string('clicktoload').'</label></i>
+<input type="hidden" name="racenumber" id="racenumber" value="'.$racenumber.'" />
+<input type="hidden" name="racename" id="racename" value="'.$racename.'" />
+<input type="hidden" name="mode" id="mode" value="'.$mode.'"/>
+<input type="hidden" name="scale" id="scale" value="'.$scale.'"/>
+<input type="hidden" name="url_serveur" id="url_serveur" value="'.$url_serveur.'"/>
+<input type="hidden" name="lang" id="lang" value="'.$lang.'"/>
+<input type="hidden" name="boattype" id="boattype" value="'.$boattype.'"/>
+</form>
+</div>
+';
+
+echo '
 <div id="menucentre">
 <h4>'.$al->get_string('display').'</h4>
 <form action="'.$appli.'" method="post" name="saisie_mode" id="saisie_mode"/>
@@ -1148,7 +1127,48 @@ echo '
 <input type="hidden" name="racename" id="racename" value="'.$racename.'"/>
 <input type="hidden" name="lang" id="lang" value="'.$lang.'"/>
 </form>
+</div>
 ';
+
+// Archives
+
+// afficheArchivesKML();
+if ($datatodisplay=verifieArchivesKML()){
+	echo '<div id="menudroite">
+<p><span class="small">'.$al->get_string('info1').'<br /><i>'.$al->get_string('info2').'</i></span></p>'."\n";
+
+	echo '
+<h4>'.$al->get_string('mapready').'</h4>
+';
+
+    displayArchivesKML($datatodisplay);
+	if ($datatodisplay->nkml){
+		echo '
+<button id="rollButtonkml" type="button" onclick="rollKml()">++KML</button>
+';
+		echo '<div id="divkml">
+<script type="text/javascript">
+displayPagekml();
+</script>
+</div>
+';
+	}
+
+	if ($datatodisplay->nkmz){
+		echo '
+<button id="rollButtonkmz" type="button" onclick="rollKmz()">++KMZ</button>
+';
+		echo '<div id="divkmz">
+<script type="text/javascript">
+displayPagekmz();
+</script>
+</div>
+';
+	}
+	echo '</div>
+';
+}
+
 }
 
 // ------------------

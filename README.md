@@ -85,6 +85,13 @@ Connect with a Web browser to the *solgerth URL*, select the **SolBoats2GE** lin
 5. Wait a while... Two KMZ and one KML files are produced.
 6. Open one of them with G.E.
 
+You may also use
+http://solboat2ge.php?lang=en&racenumber=xxxx&scale=yy&boattype=catamaran
+
+xxxx : race id to load.
+scale : yy [0.1 - 15]
+boattype : monocoque, catamaran, trimaran, greatboat, motorboat
+
 ### Localisation
 
 To add a new language "xx" copy the *./lang/sol2kml_en_utf8.php* to *./lang/sol2kml_xx_utf8.php*

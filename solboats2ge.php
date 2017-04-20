@@ -59,8 +59,8 @@ $servicetracks='traces_';
 $racenumber='';
 $racename='';
 $token='';
-
 */
+
 $okboattype=false;
 $okscale=false;
 $okracenumber=false;
@@ -286,6 +286,7 @@ if (isset($token) && ($token!="") ){
 	setcookie("soltoken", $token);
 }
 */
+
 if (isset($boattype) && ($boattype!="") ){
 	setcookie("solboattype", $boattype);
 }
@@ -1034,6 +1035,7 @@ global $mode;
 global $url_serveur;
 global $url_serveur_local;
 global $utiliser_cache; // par defaut il y a un cache d'une heure sur les donnes des voiliers
+global $token;
 global $racenumber;
 global $racename;
 global $boattype;

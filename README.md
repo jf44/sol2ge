@@ -35,17 +35,16 @@ Set scale to 0.1 (or less) for narrows, 0.5 for coastal races, 2 to 15 for trans
 
 Improvements of that version :
 
+* setting boattype from race info: monohull or multihull (catatmaran, trimaran)
 * localisation (fr, en).
 * getting Grib, Polar, Marks, Tracks
 * setting TWD, TWS, TWA, SOG from grib and polars
 * computation of boat roll and tilt from TWS / TWA and the right sail (jib, genois, gennaker, spi)
 * tour of the fleet
 
- monohull or multihull (catatmaran, trimaran)
-
 Next improvements
 
-* choose which boats to display
+* choose which boats to display ? This not seam so easy. Maybe an NMEA / AIS stuff ?
 * new boats like greatboats, iceboats, etc.
 
 If you like to get others improvements send me a mail.
@@ -80,7 +79,7 @@ Connect with a Web browser to the *solgerth URL*, select the **SolBoats2GE** lin
 
 1. Choose a race
 2. Select a scale
-3. Select a boat model
+3. (Select a boat model: solely if it can't be detected by race info)
 4. Click the yellow "Validate" button...
 5. Wait a while... Two KMZ and one KML files are produced.
 6. Open one of them with G.E.

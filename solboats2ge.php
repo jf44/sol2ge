@@ -360,15 +360,33 @@ menu();
 menu2(false);
 
 flush();
-echo '
-<div id="display2">
-<h4>'.$al->get_string('process').'</h4>
-';
 
+// Boattype
+if (!empty($racenumber) && !empty($token)){
+    if ($marques=my_get_content($solhost.$webclient.$filenamemarkpolars)){
+		// On va utilier SimpleXML
+		$timestamp=time();
+		echo $date=date("Y/m/d H:i:s T",$timestamp) . "<br />\n";
+		date_default_timezone_set('UTC');
+		echo $date=date("Y/m/d H:i:s T",$timestamp) . "<br>\n";
+
+        $marques_xml = new SimpleXMLElement($marques);
+		if ($marques_xml){
+            // Boat type
+            if (empty($boattype)){
+				$boattype = getBoatType($marques_xml->boat->type, $marques_xml->boat->vpp->name);
+				menu2(true);
+			}
+		}
+	}
+}
 
 if (($action=='Go') || ($action==$al->get_string('validate'))){
 	// Fichier de marques et polaires
-    if ($marques=my_get_content($solhost.$webclient.$filenamemarkpolars)){
+    if (empty($marques)){
+		$marques=my_get_content($solhost.$webclient.$filenamemarkpolars);
+	}
+    if (!empty($marques)){
 		// On va utilier SimpleXML
 		$timestamp=time();
 		echo $date=date("Y/m/d H:i:s T",$timestamp) . "<br />\n";
@@ -420,7 +438,7 @@ if (($action=='Go') || ($action==$al->get_string('validate'))){
 
             // Boat type
             if (empty($boattype)){
-				$boattype = getBoatType($marques_xml->boat->type, $polaires->name);
+				$boattype = getBoatType($marques_xml->boat->type, $marques_xml->boat->vpp->name);
 				menu2(true);
 			}
 

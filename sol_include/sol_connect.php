@@ -238,7 +238,7 @@ define ('DEBUGCONNECT', 0);      // home made debug maison !:))
 <form action="'.$appli.'" method="post" name="selectrace" id="selectrace">
 <b>'.$al->get_string('selectrace').'</b>
 <br />
-<select name="racenamenumber" id="racenamenumber" size="3">
+<select name="racenamenumber" id="racenamenumber" size="4">
 ';
 			foreach  ($t_races as $race){
 				if ($racenumber==$race->id){

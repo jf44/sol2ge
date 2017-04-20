@@ -145,6 +145,8 @@ $t_string['home'] ='Accueil';
 $t_string['file_updated'] ='Fichier mis à jour : ';
 $t_string['file_zip'] ='Zip créé : ';
 $t_string['teaser'] ='Testez nos outils et obtenez des images de vos voiliers dans G.E.';
-$t_string['help1'] ='Sélectionnez une course, une échelle et un type de bateau puis cliquez le bouton jaune "Valider".';
+$t_string['help1'] ='Sélectionnez une course, une échelle, puis cliquez le bouton jaune "Valider".';
+$t_string['errorlogin'] ='Erreur de connexion : Peut-être votre bateau n\'est-il pas encore enregistré sur cette course...';
 $t_string['archives'] ='Archives';
+$t_string['greatboat'] = 'Grand voilier';
 ?>

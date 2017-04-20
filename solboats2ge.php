@@ -82,7 +82,7 @@ $filenamemarkpolars='';
 $weatherurl='';   // url des gribs de a course  :: /webclient/weatherinfo_196.xml
 $traceUrl=''; // => /webclient/traces_1018.xml
 
-$boattype = 'monocoque';
+$boattype = '';   // Let's the soft determines the boat type
 
 // Initialisé par le chargement de la polaire de voiles
 $maxindextwa=0; // 181 : indice max des angles acceptable [0..180]
@@ -182,9 +182,12 @@ if (isset($_COOKIE["solscale"]) && !empty($_COOKIE["solscale"])){
 	$scale=$_COOKIE["solscale"];
 }
 
+/*
+// No more
 if (isset($_COOKIE["solboattype"]) && !empty($_COOKIE["solboattype"])){
 	$boattype=$_COOKIE["solboattype"];
 }
+*/
 
 // GET
 if (isset($_GET['lang'])){
@@ -287,9 +290,11 @@ if (isset($token) && ($token!="") ){
 }
 */
 
+/*
 if (isset($boattype) && ($boattype!="") ){
 	setcookie("solboattype", $boattype);
 }
+*/
 
 if (isset($scale) && ($scale!="") ){
 	setcookie("solscale", $scale);
@@ -352,6 +357,8 @@ $filenameraceboats=$servicerace.$racenumber.$extension.'?token='.$token;
 
 myheader();
 menu();
+menu2(false);
+
 flush();
 echo '
 <div id="display2">
@@ -374,6 +381,7 @@ if (($action=='Go') || ($action==$al->get_string('validate'))){
 				echo '<br /><pre>'."\n";
 				print_r($marques_xml);
     	    	echo '</pre>'."\n";
+				//exit;
 			}
             $url=$marques_xml->url; //  : /webclient/race_1018.xml
 			$weatherurl=$marques_xml->weatherurl; // : /webclient/weatherinfo_196.xml
@@ -409,6 +417,12 @@ if (($action=='Go') || ($action==$al->get_string('validate'))){
     	    $polaires->tws = $marques_xml->boat->vpp->tws_splined;
         	$polaires->twa = $marques_xml->boat->vpp->twa_splined;
 			$polaires->bs = $marques_xml->boat->vpp->bs_splined;
+
+            // Boat type
+            if (empty($boattype)){
+				$boattype = getBoatType($marques_xml->boat->type, $polaires->name);
+				menu2(true);
+			}
 
    			if (false){
 				echo '<br /><pre>'."\n";
@@ -1075,65 +1089,7 @@ echo '
 </div>
 ';
 
-echo '
-<div id="menucentre">
-<h4>'.$al->get_string('display').'</h4>
-<form action="'.$appli.'" method="post" name="saisie_mode" id="saisie_mode"/>
-<b>'.$al->get_string('display3d').'</b>
-<span class="small">'.$al->get_string('display3dinfo').'</span>
-<br /><b>'.$al->get_string('boatscale').'</b> :
-<input type="text" name="scale" size="1" maxsize="3" value="'.$scale.'"/>
-(<span class="small">[<i>0.1</i>, <i>20.0</i>].</span>)
-<br /><br />
-<br /><b>'.$al->get_string('boattype').'</b> ('.$al->get_string('currentype').':<i> '.$boattype.'</i>)<br />
-<select name="boattype" id="boattype" size="4" />
-';
-		if ($boattype=='monocoque') {
-        	echo '<option value="monocoque" SELECTED>'.$al->get_string('monocoque').'</option>';
-        	echo '<option value="catamaran">'.$al->get_string('catamaran').'</option>';
-        	echo '<option value="trimaran">'.$al->get_string('trimaran').'</option>';
-            echo '<option value="motorboat">'.$al->get_string('motorboat').'</option>';
-		}
-		else if ($boattype=='catamaran') {
-        	echo '<option value="monocoque">'.$al->get_string('monocoque').'</option>';
-        	echo '<option value="catamaran" SELECTED>'.$al->get_string('catamaran').'</option>';
-        	echo '<option value="trimaran">'.$al->get_string('trimaran').'</option>';
-            echo '<option value="motorboat">'.$al->get_string('motorboat').'</option>';
-		}
-		else if ($boattype=='trimaran') {
-        	echo '<option value="monocoque">'.$al->get_string('monocoque').'</option>';
-        	echo '<option value="catamaran">'.$al->get_string('catamaran').'</option>';
-        	echo '<option value="trimaran" SELECTED>'.$al->get_string('trimaran').'</option>';
-            echo '<option value="motorboat">'.$al->get_string('motorboat').'</option>';
-		}
-		else if ($boattype=='motorboat') {
-        	echo '<option value="monocoque">'.$al->get_string('monocoque').'</option>';
-        	echo '<option value="catamaran">'.$al->get_string('catamaran').'</option>';
-            echo '<option value="trimaran">'.$al->get_string('trimaran').'</option>';
-        	echo '<option value="motorboat" SELECTED>'.$al->get_string('motorboat').'</option>';
-		}
-		else{
-        	echo '<option value="monocoque">'.$al->get_string('monocoque').'</option>';
-        	echo '<option value="catamaran">'.$al->get_string('catamaran').'</option>';
-            echo '<option value="trimaran">'.$al->get_string('trimaran').'</option>';
-            echo '<option value="motorboat">'.$al->get_string('motorboat').'</option>';
-		}
-	echo '
-</select>
-<br /><br />
-<input type="reset" />
-<input type="submit" value="'.$al->get_string('validate').'"/>
-<input type="hidden" name="url_serveur" id="url_serveur" value="'.$url_serveur.'"/>
-<input type="hidden" name="mode" id="mode" value="'.$mode.'"/>
-<input type="hidden" name="racenumber" id="racenumber" value="'.$racenumber.'"/>
-<input type="hidden" name="racename" id="racename" value="'.$racename.'"/>
-<input type="hidden" name="lang" id="lang" value="'.$lang.'"/>
-</form>
-</div>
-';
-
 // Archives
-
 // afficheArchivesKML();
 if ($datatodisplay=verifieArchivesKML()){
 	echo '<div id="menudroite">
@@ -1171,6 +1127,100 @@ displayPagekmz();
 ';
 }
 
+}
+
+// ---------------------------
+function menu2($okboattype){
+global $time_cache;
+global $str_time_cache;
+global $scale;
+global $mode;
+global $url_serveur;
+global $url_serveur_local;
+global $utiliser_cache; // par defaut il y a un cache d'une heure sur les donnes des voiliers
+global $token;
+global $racenumber;
+global $racename;
+global $boattype;
+global $appli;
+global $lang;
+global $al;
+
+
+echo '
+<div id="menucentre">
+<h4>'.$al->get_string('display').'</h4>
+<form action="'.$appli.'" method="post" name="saisie_mode" id="saisie_mode"/>
+<b>'.$al->get_string('display3d').'</b>
+<span class="small">'.$al->get_string('display3dinfo').'</span>
+<br /><b>'.$al->get_string('boatscale').'</b> :
+<input type="text" name="scale" size="1" maxsize="3" value="'.$scale.'"/>
+(<span class="small">[<i>0.1</i>, <i>20.0</i>]</span>)
+<br /><br />
+';
+if ($okboattype){
+echo '
+<br /><b>'.$al->get_string('boattype').'</b> ('.$al->get_string('currentype').':<i> '.$boattype.'</i>)<br />
+<select name="boattype" id="boattype" size="4" />
+';
+		if ($boattype=='monocoque') {
+        	echo '<option value="monocoque" SELECTED>'.$al->get_string('monocoque').'</option>';
+        	echo '<option value="catamaran">'.$al->get_string('catamaran').'</option>';
+        	echo '<option value="trimaran">'.$al->get_string('trimaran').'</option>';
+            echo '<option value="motorboat">'.$al->get_string('motorboat').'</option>';
+        	echo '<option value="greatboat">'.$al->get_string('greatboat').'</option>';
+		}
+		else if ($boattype=='catamaran') {
+        	echo '<option value="monocoque">'.$al->get_string('monocoque').'</option>';
+        	echo '<option value="catamaran" SELECTED>'.$al->get_string('catamaran').'</option>';
+        	echo '<option value="trimaran">'.$al->get_string('trimaran').'</option>';
+            echo '<option value="motorboat">'.$al->get_string('motorboat').'</option>';
+        	echo '<option value="greatboat">'.$al->get_string('greatboat').'</option>';
+		}
+		else if ($boattype=='trimaran') {
+        	echo '<option value="monocoque">'.$al->get_string('monocoque').'</option>';
+        	echo '<option value="catamaran">'.$al->get_string('catamaran').'</option>';
+        	echo '<option value="trimaran" SELECTED>'.$al->get_string('trimaran').'</option>';
+            echo '<option value="motorboat">'.$al->get_string('motorboat').'</option>';
+        	echo '<option value="greatboat">'.$al->get_string('greatboat').'</option>';
+		}
+		else if ($boattype=='motorboat') {
+        	echo '<option value="monocoque">'.$al->get_string('monocoque').'</option>';
+        	echo '<option value="catamaran">'.$al->get_string('catamaran').'</option>';
+            echo '<option value="trimaran">'.$al->get_string('trimaran').'</option>';
+        	echo '<option value="motorboat" SELECTED>'.$al->get_string('motorboat').'</option>';
+        	echo '<option value="greatboat">'.$al->get_string('greatboat').'</option>';
+		}
+		else if ($boattype=='greatboat') {
+        	echo '<option value="monocoque">'.$al->get_string('monocoque').'</option>';
+        	echo '<option value="catamaran">'.$al->get_string('catamaran').'</option>';
+            echo '<option value="trimaran">'.$al->get_string('trimaran').'</option>';
+        	echo '<option value="motorboat">'.$al->get_string('motorboat').'</option>';
+        	echo '<option value="geatboat" SELECTED>'.$al->get_string('greatboat').'</option>';
+		}
+		else{
+        	echo '<option value="monocoque">'.$al->get_string('monocoque').'</option>';
+        	echo '<option value="catamaran">'.$al->get_string('catamaran').'</option>';
+            echo '<option value="trimaran">'.$al->get_string('trimaran').'</option>';
+            echo '<option value="motorboat">'.$al->get_string('motorboat').'</option>';
+        	echo '<option value="greatboat">'.$al->get_string('greatboat').'</option>';
+		}
+	echo '
+</select>
+<br /><br />
+';
+}
+echo '
+<input type="reset" />
+<input type="submit" value="'.$al->get_string('validate').'"/>
+<input type="hidden" name="url_serveur" id="url_serveur" value="'.$url_serveur.'"/>
+<input type="hidden" name="mode" id="mode" value="'.$mode.'"/>
+<input type="hidden" name="racenumber" id="racenumber" value="'.$racenumber.'"/>
+<input type="hidden" name="racename" id="racename" value="'.$racename.'"/>
+<input type="hidden" name="lang" id="lang" value="'.$lang.'"/>
+</form>
+</div>
+';
 }
 
 // ------------------
@@ -1713,6 +1763,20 @@ function getSog($twa, $tws, $t_polaires){
 		}
 	}
 	return 0;
+ }
+
+ // -----------------------------------
+ function getBoatType($btype, $polname){
+	if ((preg_match("/catamaran/i",$btype)===true) || (preg_match("/catamaran/i",$polname)==true)){
+		return 'catamaran';
+	}
+	else if ((preg_match("/trimaran/i",$btype)===true) || (preg_match("/trimaran/i",$polname)===true)){
+		return 'trimaran';
+	}
+	else if ((preg_match("/great/i",$btype)===true) || (preg_match("/great/i",$polname)===true)){
+        return 'greatboat';
+	}
+    return 'monocoque';
  }
 
 ?>

@@ -137,6 +137,8 @@ $t_string['home'] ='Home';
 $t_string['file_updated'] ='Updated file: ';
 $t_string['file_zip'] ='Zipped file: ';
 $t_string['teaser'] ='Test our tools and get pictures of your boats in G.E.';
-$t_string['help1'] ='Select a race, a scale and a boat type then click on the yellow "Validate"!';
+$t_string['errorlogin'] ='Error login: Maybe you have not yet registered your boat in this race...';
+$t_string['help1'] ='Select a race, a scale, then click on the yellow "Validate"!';
 $t_string['archives'] ='Archives';
+$t_string['greatboat'] = 'Great sail boat';
 ?>
